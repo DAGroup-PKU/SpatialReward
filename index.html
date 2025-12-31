@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <link rel="icon" type="image/png" href="./statics/images/icon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpatialT2I - Project Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @font-face {
+            font-family: 'Caveat';
+            src: url('./statics/fonts/Caveat-Medium.ttf') format('truetype');
+            font-weight: 500; 
+            font-style: normal;
+            font-display: swap; 
+        }
+        :root {
+            --cyan: #46cbc7;
+            --orange: #de5a1d;
+            --bg-overlay: rgba(15, 23, 42, 0.9);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative; 
+        }
+
+        /* Background */
+        .hero-background {
+            position: fixed; 
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -10;
+            background-image: url('./statics/images/bg.png'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .hero-overlay {
+            position: fixed; 
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -9; 
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.85) 60%, #000 100%);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            min-height: 100vh; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 4rem;
+            text-align: center;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .pill-btn {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #000;
+            padding: 10px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .pill-btn:hover {
+            background-color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--cyan); 
+        }
+
+        .main-title {
+            font-family: 'Caveat', cursive, -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 3.7rem;
+            font-weight: 500; 
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--cyan), #fff, var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .title-icon {
+            width: 60px;  
+            height: 60px;
+            object-fit: contain;
+            -webkit-text-fill-color: initial;
+            flex-shrink: 0; 
+        }
+
+        .authors-wrapper {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .author-names {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: #e2e8f0;
+        }
+
+        .author-names a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            border-bottom: 1px dotted rgba(255,255,255,0.3); 
+        }
+
+        .author-names a:hover {
+            color: var(--cyan);
+            border-bottom-color: var(--cyan);
+        }
+
+        .author-names sup {
+            color: var(--orange); 
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-left: 2px;
+        }
+
+        .institutions {
+            font-size: 1.05rem;
+            color: #cbd5e1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .inst-block {
+            display: inline-flex;
+            align-items: center; 
+            gap: 8px; 
+        }
+        
+        .inst-logo {
+            height: 30px; 
+            width: 30px;  
+            object-fit: contain; 
+            vertical-align: middle;
+            margin-right: 5px; 
+            background-color: #ffffff;
+            padding: 2px;             
+            border-radius: 4px;      
+        }
+        
+        .separator {
+            color: #475569;
+            font-weight: 300;
+        }
+
+        .contribution-note {
+            font-size: 0.85rem;
+            color: #64748b; 
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        .contribution-note .bullet {
+            margin: 0 8px;
+            color: #475569;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-hidden { display: none; }
+            .author-names { font-size: 1.1rem; padding: 0 10px; }
+            .institutions { font-size: 0.9rem; flex-direction: column; gap: 5px; }
+            .separator { display: none; }
+            .main-title { font-size: 2rem; }
+            .pill-btn { padding: 8px 16px; font-size: 0.85rem; }
+            .video-wrapper { width: 95%; }
+        }
+
+        .video-wrapper {
+            width: 85%;
+            max-width: 1100px;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 20px;
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            margin-bottom: 4rem;
+        }
+
+        .video-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), var(--orange), transparent);
+            opacity: 0.8;
+        }
+
+        .video-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0f172a; 
+            color: #94a3b8;
+            flex-direction: column;
+        }
+
+        /* Layout & Container */
+        .content-section {
+            background-color: transparent;
+            padding: 4rem 2rem;
+            display: block; 
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto; 
+            position: relative;
+        }
+
+        .abstract-box {
+            background: rgba(17, 17, 17, 0.8);
+            border-radius: 12px;
+            padding: 2.5rem;
+            border-left: 4px solid var(--orange);
+            margin-bottom: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        h2 { font-size: 2rem; margin-bottom: 1.5rem; color: #fff; }
+        p { line-height: 1.8; color: #d1d5db; font-size: 1.1rem; margin-bottom: 1rem; text-align: justify; }
+
+        .pipeline-container {
+            width: 100%;
+            margin: 1rem 0;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 10px;
+            background: rgba(0,0,0,0.6);
+        }
+        
+        .pipeline-container img { width: 100%; height: auto; border-radius: 4px; }
+
+        /* Tables */
+        .results-breakout-container {
+            width: 92vw;
+            max-width: 1400px;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 4rem;
+            background: rgba(10, 10, 10, 0.9);
+            border: 1px solid #333;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            overflow-x: auto;
+            backdrop-filter: blur(5px);
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+        }
+
+        .custom-table th, .custom-table td {
+            padding: 10px 8px;
+            text-align: center;
+        }
+
+        .custom-table td { border-bottom: 1px solid #222; }
+        .custom-table tbody tr:last-child td { border-bottom: none; }
+
+        .custom-table th {
+            background-color: rgba(20, 20, 20, 0.95);
+            color: #fff;
+            font-weight: 600;
+            vertical-align: middle;
+            white-space: normal;
+        }
+
+        .group-header {
+            border-bottom: 1px solid #333; 
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--cyan);
+            padding-bottom: 5px !important;
+        }
+
+        .custom-table thead tr:last-child th {
+            border-bottom: 2px solid var(--orange);
+        }
+
+        .custom-table thead th[rowspan] {
+            border-bottom: 2px solid var(--orange);
+        }
+
+        .custom-table td:first-child, .custom-table th:first-child {
+            text-align: left;
+            padding-left: 15px;
+            min-width: 100px;
+        }
+
+        .spatial-col-header {
+            background: linear-gradient(to bottom, rgba(70, 203, 199, 0.1), rgba(0,0,0,0));
+            border-top: 2px solid var(--cyan);
+            color: var(--cyan) !important;
+            font-size: 1rem !important;
+            border-bottom: 2px solid var(--orange) !important; 
+        }
+        
+        .highlight-col {
+            background-color: rgba(70, 203, 199, 0.03);
+            border-left: 1px solid rgba(70, 203, 199, 0.15);
+            border-right: 1px solid rgba(70, 203, 199, 0.15);
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .highlight-row {
+            background-color: rgba(222, 90, 29, 0.05) !important;
+        }
+        .highlight-row td:first-child {
+            color: var(--orange);
+            font-weight: bold;
+            position: relative;
+        }
+        .highlight-row td:first-child::before {
+            content: '★';
+            margin-right: 5px;
+            font-size: 0.8rem;
+        }
+
+        .best-score {
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 0 8px rgba(70, 203, 199, 0.4);
+        }
+
+        .table-title {
+            color: #fff; 
+            margin-bottom: 10px; 
+            font-size: 1.1rem; 
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .table-caption {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 12px;
+            text-align: left;
+            line-height: 1.4;
+        }
+
+        /* --- Common Carousel Styles --- */
+        .carousel-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .carousel-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px; 
+            width: 95vw;
+            max-width: 1300px;
+        }
+
+        .carousel-main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 1100px; 
+        }
+
+        .carousel-container {
+            width: 100%;
+            position: relative;
+            background: rgba(10, 10, 10, 0.6);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 4px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            overflow: hidden;
+            line-height: 0; 
+        }
+
+        .carousel-slide {
+            display: none;
+            width: 100%;
+            animation: fadeEffect 0.5s ease;
+        }
+
+        .carousel-slide.active {
+            display: block;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            display: block; 
+        }
+
+        @keyframes fadeEffect {
+            from {opacity: 0.5;}
+            to {opacity: 1;}
+        }
+
+        .carousel-btn {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0; 
+        }
+
+        .carousel-btn:hover {
+            background-color: var(--orange);
+            color: #fff;
+            box-shadow: 0 0 15px var(--orange);
+            border-color: var(--orange);
+            transform: scale(1.1);
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 8px;
+        }
+
+        .dot {
+            height: 4px;
+            width: 30px;
+            background-color: #333;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active, .dot:hover {
+            background-color: var(--cyan);
+            box-shadow: 0 0 8px var(--cyan);
+        }
+
+        /* --- Specific Header Styles --- */
+        
+        /* 1. Qualitative Results Headers */
+        .header-row {
+            display: flex;
+            padding-bottom: 10px;
+            align-items: flex-end;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .header-col-prompt {
+            width: 44%; /* CORRECTED from 65% to fix alignment */
+            text-align: center;
+            padding-right: 10px;
+            font-size: 1.3rem;
+            color: #fff;
+        }
+        
+        .header-col-model {
+            width: 18.6%;
+            text-align: center;
+            color: #cbd5e1;
+        }
+
+        .header-col-ours {
+            width: 18.6%;
+            text-align: center;
+            color: var(--cyan);
+            font-weight: 800;
+        }
+
+        /* 2. Data Curation Headers */
+        .data-header-row {
+            display: flex;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .data-header-col {
+            width: 50%;
+            text-align: center;
+            padding: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 6px;
+            color: #111; /* Dark text for contrast against pastel bg */
+            margin: 0 4px; /* Slight gap */
+        }
+
+        .data-perfect {
+            background-color: #d1fae5; /* Pastel Green */
+            color: #065f46;
+        }
+        
+        .data-perturbed {
+            background-color: #fee2e2; /* Pastel Red */
+            color: #991b1b;
+        }
+
+
+        @media (max-width: 768px) {
+            .results-breakout-container { width: 100%; left: 0; transform: none; padding: 1rem 0.5rem; }
+            .custom-table { white-space: nowrap; }
+            .header-row, .data-header-row { display: none; }
+            .carousel-wrapper { gap: 5px; width: 100%; }
+            .carousel-btn { width: 35px; height: 35px; font-size: 0.9rem; }
+            .carousel-main-content { max-width: 100%; }
+        }
+
+        /* Footer */
+        .site-footer {
+            width: 100%;
+            padding: 3rem 0;
+            margin-top: 4rem; 
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;     
+            justify-content: center; 
+            
+            position: relative;
+            z-index: 10;
+            
+            background: rgba(0, 0, 0, 0.6); 
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .site-footer .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto; 
+            text-align: center;
+        }
+
+        .site-footer .credits {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap; /* Safety for small screens */
+        }
+
+        .gemini-badge {
+            font-weight: 600;
+            background: linear-gradient(90deg, #4285F4, #9B72CB, #F869B7); 
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: opacity 0.3s ease;
+        }
+
+        .gemini-badge i {
+            font-size: 0.85rem;
+            -webkit-text-fill-color: initial; 
+            color: #9B72CB; 
+        }
+
+        .gemini-badge:hover {
+            opacity: 0.8;
+            cursor: default;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hero-background"></div>
+    <div class="hero-overlay"></div>
+    
+    <div class="hero-section">
+        <div class="title-area">
+            <h1 class="main-title">
+                <img src="./statics/images/icon.png" alt="SpatialT2I Icon" class="title-icon">
+                Enhancing Spatial Understanding in Image Generation via Reward Modeling
+            </h1>
+            <div class="authors-wrapper">
+                <div class="author-names">
+                    <a href="https://dblp.org/pid/72/4431-4.html">Zhenyu Tang</a><sup>1,2*</sup>,&nbsp;
+                    <a href="https://www.falcary.com/">Chaoran Feng</a><sup>1*</sup>,&nbsp;
+                    <a href="https://dblp.org/pid/185/7084.html">Yufan Deng</a><sup>1,2</sup>,&nbsp;
+                    <a href="https://scholar.google.com/citations?user=MxvLqLcAAAAJ&hl=zh-CN">Jie Wu</a><sup>2</sup>,&nbsp;
+                    <a href="https://scholar.google.com/citations?user=RghSlb0AAAAJ&hl=en">Xiaojie Li</a><sup>2</sup>,&nbsp;
+                    <br class="mobile-hidden"> 
+                    <a href="https://scholar.google.com/citations?user=nGki_EEAAAAJ&hl=en">Rui Wang</a><sup>2</sup>,&nbsp;
+                    <a href="https://scholar.google.com/citations?user=-JiwekUAAAAJ&hl=en">Yunpeng Chen</a><sup>2</sup>,&nbsp;
+                    <a href="https://scholar.google.com/citations?user=DdCAbWwAAAAJ&hl=en">Daquan Zhou</a><sup>1†</sup>
+                </div>
+
+            <div class="institutions">
+                <span class="inst-block">
+                    <img src="statics/images/logo_pku.png" alt="Peking University" class="inst-logo">
+                    <span><sup>1</sup>Peking University</span>
+                </span>
+                
+                <span class="separator">|</span>
+                
+                <span class="inst-block">
+                    <img src="statics/images/logo_bytedance.png" alt="ByteDance Seed" class="inst-logo">
+                    <span><sup>2</sup>ByteDance Seed</span>
+                </span>
+            </div>
+                <div class="contribution-note">
+                    <span>* Equal Contribution</span>
+                    <span class="bullet">&bull;</span>
+                    <span>† Corresponding Author</span>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="nav-buttons">
+            <a href="#" class="pill-btn"><i class="fa-brands fa-github"></i> Code</a>
+            <a href="#" class="pill-btn"><i class="fa-solid fa-file-pdf"></i> Arxiv</a>
+            <a href="#" class="pill-btn"><i class="fa-solid fa-cube"></i> Hugginface</a>
+        </div>
+
+        <div class="video-wrapper">
+            <iframe 
+                width="100%" 
+                height="100%" 
+                src=" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen
+                style="position: absolute; top: 0; left: 0;">
+            </iframe>
+           
+            <div class="video-content">
+                <i class="fa-regular fa-circle-play" style="font-size: 5rem; color: var(--orange); margin-bottom: 20px;"></i>
+                <h3 style="color: #fff;">Introductory Demo Video</h3>
+                <p style="font-size: 0.9rem;">Showcasing SpatialReward & SpatialScore</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="content-section">
+        <div class="container">
+            
+            <!-- Abstract -->
+            <div class="abstract-box">
+                <h2 style="color: var(--cyan);">Abstract</h2>
+                <p>
+                Recent progress in text-to-image generation has greatly advanced visual fidelity and creativity, but it has also imposed higher demands on prompt complexity—particularly in encoding intricate spatial relationships.In such cases, achieving satisfactory results often requires multiple sampling attempts.
+                To address this challenge, we introduce a novel method that strengthens the spatial understanding of current image generation models.We first construct the <strong style="color: var(--orange);">SpatialReward-Dataset</strong>  with over 80k preference pairs.
+                Building on this dataset, we build <strong style="color: var(--orange);">SpatialScore</strong>, a reward model designed to evaluate the accuracy of spatial relationships in text-to-image generation, achieving performance that even surpasses leading proprietary models on spatial evaluation.
+                We further demonstrate that this reward model effectively enables online reinforcement learning for the complex spatial generation.Extensive experiments across multiple benchmarks show that our specialized reward model yields significant and consistent gains in spatial understanding for image generation.
+                </p>
+            </div>
+
+            <!-- Pipeline / Method -->
+            <h2 style="text-align: center;">Methodology Pipeline</h2>
+            <div style="margin-bottom: 3rem;">
+                <div class="pipeline-container">
+                    <img src="./statics/images/pipeline.png" alt="Method Pipeline">
+                </div>
+                <p style="text-align: center; color: #94a3b8;">Overview of the SpatialReward-Dataset construction and training process.</p>
+            </div>
+
+            <div style="margin-bottom: 3rem;">
+                <div class="pipeline-container">
+                    <img src="./statics/images/grpo_optimization.png" alt="Method Pipeline">
+                </div>
+                <p style="text-align: center; color: #94a3b8;">GRPO training pipeline for enhancing spatial unserstanding.</p>
+            </div>
+            
+            <!-- Results -->
+            <h2 style="text-align: center;">Experimental Results</h2>
+            
+            <!-- Table 1 -->
+            <div class="results-breakout-container">
+                <div class="table-title">
+                    <i class="fa-solid fa-table"></i> 
+                    Table 1: Pairwise-accuracy comparisons on reward evaluation benchmark
+                </div>
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Setting</th>
+                            <th colspan="6" class="group-header">Image Reward Models</th>
+                            <th colspan="3" class="group-header">Qwen2.5-VL Series</th>
+                            <th colspan="2" class="group-header">Proprietary Models</th>
+                            <th rowspan="2" class="spatial-col-header">Spatial<br>Score</th>
+                        </tr>
+                        <tr>
+                            <!-- Image Reward Models -->
+                            <th>Image<br>Reward</th>
+                            <th>Pick<br>score</th>
+                            <th>HPS<br>v2.1</th>
+                            <th>VQA<br>Score</th>
+                            <th>Unified<br>Reward</th>
+                            <th>HPS<br>v3</th>
+                            <!-- Qwen -->
+                            <th>7B</th>
+                            <th>32B</th>
+                            <th>72B</th>
+                            <!-- Proprietary -->
+                            <th>GPT-5</th>
+                            <th>Gemini<br>2.5 pro</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1 Pert.</td>
+                            <td>0.439</td>
+                            <td>0.461</td>
+                            <td>0.433</td>
+                            <td>0.567</td>
+                            <td>0.583</td>
+                            <td>0.606</td>
+                            <td>0.572</td>
+                            <td>0.644</td>
+                            <td>0.711</td>
+                            <td>0.855</td>
+                            <td>0.933</td>
+                            <td class="highlight-col best-score">0.939</td>
+                        </tr>
+                        <tr>
+                            <td>2–3 Pert.</td>
+                            <td>0.513</td>
+                            <td>0.551</td>
+                            <td>0.491</td>
+                            <td>0.638</td>
+                            <td>0.627</td>
+                            <td>0.697</td>
+                            <td>0.632</td>
+                            <td>0.724</td>
+                            <td>0.816</td>
+                            <td>0.924</td>
+                            <td>0.968</td>
+                            <td class="highlight-col best-score">0.978</td>
+                        </tr>
+                        <tr style="border-top: 2px solid #333;">
+                            <td style="font-weight: bold; color: #fff;">Overall</td>
+                            <td>0.479</td>
+                            <td>0.509</td>
+                            <td>0.463</td>
+                            <td>0.603</td>
+                            <td>0.605</td>
+                            <td>0.652</td>
+                            <td>0.602</td>
+                            <td>0.685</td>
+                            <td>0.764</td>
+                            <td>0.890</td>
+                            <td>0.951</td>
+                            <td class="highlight-col best-score">0.958</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="table-caption">
+                    "1 Pert." and "2–3 Pert." denote subsets with one or two-three spatial perturbations applied to the perturbed prompts. Our SpatialScore outperforms both open-source and proprietary models.
+                </p>
+            </div>
+
+            <!-- Table 2 -->
+            <div class="results-breakout-container">
+                <div class="table-title">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    Table 2: Comparisons on Generation Benchmarks
+                </div>
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Method</th>
+                            <th rowspan="2">Spatial<br>Score</th>
+                            <th colspan="1" class="group-header">DPG-bench</th>
+                            <th colspan="3" class="group-header">TIIF-bench-short</th>
+                            <th colspan="3" class="group-header">TIIF-bench-long</th>
+                            <th colspan="2" class="group-header">Unibench (S)</th>
+                            <th colspan="2" class="group-header">Unibench (L)</th>
+                        </tr>
+                        <tr>
+                            <!-- DPG -->
+                            <th>Relation<br>Spatial</th>
+                            <!-- TIIF Short -->
+                            <th>BR</th>
+                            <th>AR</th>
+                            <th>RR</th>
+                            <!-- TIIF Long -->
+                            <th>BR</th>
+                            <th>AR</th>
+                            <th>RR</th>
+                            <!-- Unibench Short -->
+                            <th>Lay<br>2D</th>
+                            <th>Lay<br>3D</th>
+                            <!-- Unibench Long -->
+                            <th>Lay<br>2D</th>
+                            <th>Lay<br>3D</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Flux.1-dev</td>
+                            <td>2.18</td>
+                            <td>0.871</td>
+                            <td>0.769</td>
+                            <td>0.608</td>
+                            <td>0.584</td>
+                            <td>0.758</td>
+                            <td>0.677</td>
+                            <td>0.645</td>
+                            <td>0.766</td>
+                            <td>0.667</td>
+                            <td>0.819</td>
+                            <td>0.742</td>
+                        </tr>
+                        <tr>
+                            <td>Flow-GRPO*</td>
+                            <td>3.01</td>
+                            <td>0.742</td>
+                            <td>0.851</td>
+                            <td>0.652</td>
+                            <td>0.621</td>
+                            <td>0.577</td>
+                            <td>0.510</td>
+                            <td>0.482</td>
+                            <td>0.726</td>
+                            <td>0.635</td>
+                            <td>0.445</td>
+                            <td>0.405</td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td>Ours</td>
+                            <td class="best-score" style="color:var(--cyan);">7.81</td>
+                            <td class="best-score">0.932</td>
+                            <td class="best-score">0.875</td>
+                            <td class="best-score">0.700</td>
+                            <td class="best-score">0.647</td>
+                            <td class="best-score">0.845</td>
+                            <td class="best-score">0.715</td>
+                            <td class="best-score">0.675</td>
+                            <td class="best-score">0.875</td>
+                            <td class="best-score">0.773</td>
+                            <td class="best-score">0.891</td>
+                            <td class="best-score">0.801</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="table-caption">
+                    * denotes training with Geneval as the reward model. BR, AR, and RR denote basic relation, attribute+relation, and relation+reasoning. (S)/(L) denote short/long prompts.
+                </p>
+            </div>
+
+            <!-- CAROUSEL 1: Qualitative Comparison -->
+            <div class="carousel-section" id="carousel-qualitative">
+                <h3 style="color: #fff; margin-bottom: 30px; font-size: 1.8rem; text-align: center;">
+                    Qualitative Comparison
+                </h3>
+                
+                <div class="carousel-wrapper">
+                    <button class="carousel-btn prev-btn">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+
+                    <div class="carousel-main-content">
+                        <!-- Custom Header for Qualitative -->
+                        <div class="header-row">
+                            <div class="header-col-prompt">Text Prompt with complex relations</div>
+                            <div class="header-col-model">Flux</div>
+                            <div class="header-col-model">Flow-GRPO<br><span style="font-size:0.8em; opacity:0.7">(GenEval)</span></div>
+                            <div class="header-col-ours">Ours</div>
+                        </div>
+
+                        <div class="carousel-container">
+                            <div class="carousel-slide active"><img src="./statics/images/quan_results1.png"></div>
+                            <div class="carousel-slide"><img src="./statics/images/quan_results2.png"></div>
+                            <div class="carousel-slide"><img src="./statics/images/quan_results3.png"></div>
+                            <div class="carousel-slide"><img src="./statics/images/quan_results4.png"></div>
+                            <div class="carousel-slide"><img src="./statics/images/quan_results5.png"></div>
+                            <div class="carousel-slide"><img src="./statics/images/quan_results6.png"></div>
+                            <div class="carousel-slide"><img src="./statics/images/quan_results7.png"></div>
+                            <div class="carousel-slide"><img src="./statics/images/quan_results8.png"></div>
+                            <div class="carousel-slide"><img src="./statics/images/quan_results9.png"></div>
+                            <div class="carousel-slide"><img src="./statics/images/quan_results10.png"></div>
+                        </div>
+                        
+                        <div class="carousel-indicators"></div>
+                    </div>
+
+                    <button class="carousel-btn next-btn">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- CAROUSEL 2: Data Construction & Curation (NEW) -->
+            <div class="carousel-section" id="carousel-data">
+                <h3 style="color: #fff; margin-bottom: 30px; font-size: 1.8rem; text-align: center;">
+                    Data Construction & Curation
+                </h3>
+                
+                <div class="carousel-wrapper">
+                    <button class="carousel-btn prev-btn">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+
+                    <div class="carousel-main-content">
+                        <!-- Custom Header for Data Curation -->
+                        <div class="data-header-row">
+                            <div class="data-header-col data-perfect">Perfect Text Prompt with complex relations</div>
+                            <div class="data-header-col data-perturbed">Perturbed Text Prompt with complex relations</div>
+                        </div>
+
+                        <div class="carousel-container">
+                            <!-- Loop 1-12 -->
+                            <div class="carousel-slide active"><img src="./statics/images/data_pair1.png"></div>
+                            <div class="carousel-slide"><img src="./statics/images/data_pair2.png"></div>
+                            <div class="carousel-slide"><img src="./statics/images/data_pair3.png"></div>
+                            <div class="carousel-slide"><img src="./statics/images/data_pair4.png"></div>
+                            <div class="carousel-slide"><img src="./statics/images/data_pair5.png"></div>
+                            <div class="carousel-slide"><img src="./statics/images/data_pair6.png"></div>
+                            <div class="carousel-slide"><img src="./statics/images/data_pair7.png"></div>
+                            <div class="carousel-slide"><img src="./statics/images/data_pair8.png"></div>
+                            <div class="carousel-slide"><img src="./statics/images/data_pair9.png"></div>
+                            <div class="carousel-slide"><img src="./statics/images/data_pair10.png"></div>
+                            <div class="carousel-slide"><img src="./statics/images/data_pair11.png"></div>
+                            <div class="carousel-slide"><img src="./statics/images/data_pair12.png"></div>
+                        </div>
+                        
+                        <div class="carousel-indicators"></div>
+                    </div>
+
+                    <button class="carousel-btn next-btn">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Citation -->
+            <div style="background: #1e1e1e; padding: 20px; border-radius: 8px; font-family: monospace; color: #aaa;">
+                <p style="margin:0; color:var(--cyan); margin-bottom:10px;">// BibTeX</p>
+                @article{tang2025enhancing,<br>
+                &nbsp;&nbsp;title={Enhancing Spatial Understanding in Image Generation via Reward Modeling},<br>
+                &nbsp;&nbsp;author={Tang, Zhenyu and Feng, Chaoran and others},<br>
+                &nbsp;&nbsp;journal={arXiv preprint},<br>
+                &nbsp;&nbsp;year={2025}<br>
+                }
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p class="credits">
+                Copyright &copy; 2025 SpatialT2I Project. All rights reserved.
+                &nbsp;|&nbsp;
+                Website design assisted by 
+                <span class="gemini-badge">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Gemini 3 Pro
+                </span>
+            </p>
+        </div>
+    </footer>
+    
+    <!-- Modular Carousel Logic -->
+    <script>
+        function initCarousel(carouselId) {
+            const container = document.getElementById(carouselId);
+            if (!container) return;
+
+            const slides = container.querySelectorAll('.carousel-slide');
+            const indicatorsContainer = container.querySelector('.carousel-indicators');
+            const prevBtn = container.querySelector('.prev-btn');
+            const nextBtn = container.querySelector('.next-btn');
+            
+            let currentIndex = 0;
+
+            // Create dots
+            slides.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(index));
+                indicatorsContainer.appendChild(dot);
+            });
+
+            const dots = indicatorsContainer.querySelectorAll('.dot');
+
+            function updateCarousel() {
+                // Update slides
+                slides.forEach((slide, index) => {
+                    if (index === currentIndex) {
+                        slide.classList.add('active');
+                    } else {
+                        slide.classList.remove('active');
+                    }
+                });
+
+                // Update dots
+                dots.forEach((dot, index) => {
+                    if (index === currentIndex) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }
+
+            function goToSlide(index) {
+                if (index < 0) {
+                    currentIndex = slides.length - 1;
+                } else if (index >= slides.length) {
+                    currentIndex = 0;
+                } else {
+                    currentIndex = index;
+                }
+                updateCarousel();
+            }
+
+            // Event Listeners for buttons
+            prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
+            nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+        }
+
+        // Initialize both carousels independently
+        document.addEventListener('DOMContentLoaded', () => {
+            initCarousel('carousel-qualitative');
+            initCarousel('carousel-data');
+        });
+    </script>
+
+    <!-- Background Particles -->
+    <script>
+        (function() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.style.position = 'fixed';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.style.pointerEvents = 'none'; 
+            canvas.style.zIndex = '9999';       
+            document.body.appendChild(canvas);
+
+            let particles = [];
+            let width = window.innerWidth;
+            let height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+
+            const colors = ['#46cbc7', '#de5a1d', '#ffffff'];
+
+            class Particle {
+                constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                    this.size = Math.random() * 3 + 1; 
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 1.5 + 0.5;
+                    this.vx = Math.cos(angle) * speed;
+                    this.vy = Math.sin(angle) * speed;
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                    this.life = 1.0; 
+                    this.decay = Math.random() * 0.03 + 0.015; 
+                }
+
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.life -= this.decay;
+                    this.size *= 0.95;
+                }
+
+                draw() {
+                    ctx.globalAlpha = this.life;
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            window.addEventListener('mousemove', (e) => {
+                for(let i = 0; i < 3; i++) {
+                    particles.push(new Particle(e.clientX, e.clientY));
+                }
+            });
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                    if (particles[i].life <= 0 || particles[i].size <= 0.1) {
+                        particles.splice(i, 1);
+                        i--;
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        })();
+    </script>
+</body>
+</html>
