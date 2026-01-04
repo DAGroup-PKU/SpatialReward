@@ -5,6 +5,7 @@
   <br>
   <a href="https://github.com/DAGroup-PKU/SpatialReward">Enhancing Spatial Understanding in Image Generation via Reward Modeling</a>
 </h2>
+
 **Zhenyu Tang**<sup>1,2*</sup>, **Chaoran Feng**<sup>1*</sup>, **Yufan Deng**<sup>1,2</sup>, **Jie Wu**<sup>2</sup>, **Xiaojie Li**<sup>2</sup>, <br>
 **Rui Wang**<sup>2</sup>, **Yunpeng Chen**<sup>2</sup>, **Daquan Zhou**<sup>1</sup>
 
