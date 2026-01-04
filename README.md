@@ -88,6 +88,7 @@ If you find our work useful, please cite our paper:
   journal={arXiv preprint arXiv:xxxx.xxxxx},
   year={2025}
 }
+```
 
 ## ⚖️ License
 This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0). For more details, please refer to the [LICENSE](LICENSE) file.
