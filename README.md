@@ -1,7 +1,6 @@
 <div align="center">
-
 <h2 align="center">
-  <img src="assets/icon/icon.png" width="240" alt="SpatialReward Logo">
+  <img src="assets/icon/icon.png" width="260" alt="SpatialReward Logo">
   <br>
   <a href="https://github.com/DAGroup-PKU/SpatialReward">Enhancing Spatial Understanding in Image Generation via Reward Modeling</a>
 </h2>
